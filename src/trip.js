@@ -226,6 +226,10 @@
                 this.callCallback();
             }
 
+            if ( this.hasBeforeNext() ) {
+                this.callBeforeNext();
+            }
+
             if ( this.isLast() ) {
                 this.doLastOperation();
             }
@@ -238,9 +242,14 @@
         prev : function() {
             this.tripDirection = 'prev';
 
+            if ( this.hasBeforePrev() ) {
+                this.callBeforePrev();
+            }
+
             if ( !this.isFirst() && this.canGoPrev() ) {
                 this.decreaseIndex();
             }
+
             this.run();
         },
 
@@ -351,6 +360,10 @@
                 }
             }
 
+            if ( this.hasBeforeShow() ) {
+                this.callBeforeShow();
+            }
+
             this.showCurrentTrip( tripObject );
 
             // show the progress bar
@@ -381,7 +394,7 @@
                          o.sel === null || o.sel.length === 0 || $(o.sel).length === 0 ) {
                 return false;
             }
-            return true;        
+            return true;
         },
 
         hasCallback : function() {
@@ -390,6 +403,30 @@
 
         callCallback : function() {
             this.tripData[ this.tripIndex ].callback(this.tripIndex);
+        },
+
+        hasBeforeNext : function() {
+            return (typeof this.tripData[ this.tripIndex ].beforeNext !== "undefined");
+        },
+
+        callBeforeNext : function() {
+            this.tripData[ this.tripIndex ].beforeNext(this.tripIndex);
+        },
+
+        hasBeforePrev : function() {
+            return (typeof this.tripData[ this.tripIndex ].beforePrev !== "undefined");
+        },
+
+        callBeforePrev : function() {
+            this.tripData[ this.tripIndex ].beforePrev(this.tripIndex);
+        },
+
+        hasBeforeShow : function() {
+            return (typeof this.tripData[ this.tripIndex ].beforeShow !== "undefined");
+        },
+
+        callBeforeShow : function() {
+            this.tripData[ this.tripIndex ].beforeShow(this.tripIndex);
         },
 
         canGoPrev: function() {
