@@ -2,7 +2,7 @@
  *  Trip.js - A jQuery plugin that can help you customize your tutorial trip easily
  *  Version : 1.2.3
  *
- *  Author : EragonJ <eragonj@eragonj.me> 
+ *  Author : EragonJ <eragonj@eragonj.me>
  *  Blog : http://eragonj.me
  */
 (function(window, $) {
@@ -26,7 +26,7 @@
             showNavigation: false,
             canGoNext: true,
             canGoPrev: true,
-        
+
             // labels
             nextLabel : "Next",
             prevLabel : "Back",
@@ -93,7 +93,7 @@
 
             this.hasExpose = true;
 
-            var oldCSS, 
+            var oldCSS,
                 newCSS;
 
             oldCSS = {
@@ -140,7 +140,7 @@
             $(document).on({
                 'keydown.Trip' : function(e) {
                     // `this` will be bound to #document DOM element here
-                    that.keyEvent.call(that, e); 
+                    that.keyEvent.call(that, e);
                 }
             });
         },
@@ -157,7 +157,7 @@
                 this.stop();
                 break;
 
-            case this.CONSTANTS['SPACE'] : 
+            case this.CONSTANTS['SPACE'] :
 
                 // space will make the page jump
                 e.preventDefault();
@@ -170,8 +170,8 @@
                 this.prev();
                 break;
 
-            case this.CONSTANTS['RIGHT_ARROW'] : 
-            case this.CONSTANTS['DOWN_ARROW'] : 
+            case this.CONSTANTS['RIGHT_ARROW'] :
+            case this.CONSTANTS['DOWN_ARROW'] :
 
                 this.next();
                 break;
@@ -203,7 +203,7 @@
                 var remainingTime = this.timer.resume();
                 this.resumeProgressBar( remainingTime );
             }
-            
+
             this.progressing = !this.progressing;
         },
 
@@ -254,8 +254,8 @@
         },
 
         // XXX:
-        // Because the trip index is controlled by increaseIndex / decreaseIndex methods only, 
-        // `showCurrentTrip` doesn't have to take care about which is the current trip object, 
+        // Because the trip index is controlled by increaseIndex / decreaseIndex methods only,
+        // `showCurrentTrip` doesn't have to take care about which is the current trip object,
         // it just does the necessary operations according to the passed tripData `o`
         showCurrentTrip : function(o) {
 
@@ -271,7 +271,7 @@
             if ( this.timer ) {
                 this.timer.stop();
             }
-            
+
             if ( this.hasExpose ) {
                 this.hideExpose();
             }
@@ -306,7 +306,7 @@
             if ( this.hasExpose ) {
                 this.hideExpose();
             }
-            
+
             if ( this.settings.backToTopWhenEnded ) {
                 this.$root.animate({ scrollTop : 0 }, 'slow');
             }
@@ -321,7 +321,7 @@
             var that = this;
 
             this.$bar.animate({
-                width : '100%'  
+                width : '100%'
             }, delay, "linear", function() {
                 that.$bar.width(0);
             });
@@ -352,7 +352,7 @@
                 if ( this.settings.skipUndefinedTrip === false ) {
                     this.console.error("Your tripData is not valid at index : " + this.tripIndex);
                     this.stop();
-                    return false; 
+                    return false;
                 }
                 // let it go
                 else {
@@ -500,6 +500,8 @@
                       .html( closeBoxLabel )
                       .toggle( showCloseBox );
 
+            $tripBlock.css('max-width', o.width || '');
+
             var $sel = o.sel,
                 selWidth = $sel.outerWidth(),
                 selHeight = $sel.outerHeight(),
@@ -534,7 +536,7 @@
                 });
                 break;
             case 'n':
-            default: 
+            default:
                 $tripBlock.addClass('n');
                 $tripBlock.css({
                     left : $sel.offset().left + ((selWidth - blockWidth) / 2),
@@ -596,7 +598,7 @@
                 ].join('');
 
                 var that = this,
-                    $tripBlock = $(html).addClass( this.settings.tripTheme );  
+                    $tripBlock = $(html).addClass( this.settings.tripTheme );
 
                 $('body').append( $tripBlock );
 
@@ -631,7 +633,7 @@
 
                 $overlay.height( $(window).height() )
                         .css({
-                            zIndex : this.settings.overlayZindex 
+                            zIndex : this.settings.overlayZindex
                         });
 
                 $('body').append( $overlay );
